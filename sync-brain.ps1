@@ -8,7 +8,9 @@
 $VaultPath   = $PSScriptRoot
 $LogFile     = Join-Path $VaultPath "sync-log.txt"
 $MaxLogLines = 500
-$Branch      = "main"
+# Tu dong nhan dien nhanh hien tai (master hoac main)
+$CurrentBranch = (git branch --show-current 2>$null)
+if ($CurrentBranch) { $Branch = $CurrentBranch.Trim() } else { $Branch = "master" }
 
 # ===== LOG =====
 function Write-SyncLog {
