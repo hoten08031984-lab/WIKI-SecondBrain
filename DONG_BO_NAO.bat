@@ -22,6 +22,25 @@ if "%CURRENT_BRANCH%"=="" set CURRENT_BRANCH=master
 echo Nhanh hien tai: %CURRENT_BRANCH%
 
 echo.
+echo [1b/4] Dang kiem tra danh tinh Git (user.name / user.email)...
+for /f "tokens=*" %%n in ('git config user.name 2^>nul') do set GIT_NAME=%%n
+if "%GIT_NAME%"=="" (
+    echo Chua co user.name, dang tu dong cau hinh...
+    git config user.name "hoten08031984-lab"
+    echo Da cau hinh user.name = hoten08031984-lab
+) else (
+    echo user.name hien tai: %GIT_NAME%
+)
+for /f "tokens=*" %%e in ('git config user.email 2^>nul') do set GIT_EMAIL=%%e
+if "%GIT_EMAIL%"=="" (
+    echo Chua co user.email, dang tu dong cau hinh...
+    git config user.email "hoten08031984@gmail.com"
+    echo Da cau hinh user.email = hoten08031984@gmail.com
+) else (
+    echo user.email hien tai: %GIT_EMAIL%
+)
+
+echo.
 echo [2/4] Dang keo du lieu moi nhat tu GitHub ve (Pull)...
 git fetch origin %CURRENT_BRANCH%
 git pull --rebase origin %CURRENT_BRANCH%
