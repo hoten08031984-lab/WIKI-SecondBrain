@@ -91,4 +91,4 @@ echo ========================================================
 echo             HOAN TAT DONG BO SECOND BRAIN!
 echo ========================================================
 echo.
-timeout /t 5
+timeout /t 5 >nul 2>nul || ping 127.0.0.1 -n 6 >nul
