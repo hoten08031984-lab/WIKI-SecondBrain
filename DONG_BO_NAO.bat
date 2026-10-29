@@ -81,9 +81,17 @@ if %errorlevel% equ 0 (
 
 echo.
 echo [Bonus] Dang cap nhat lai chi muc tim kiem FTS5...
-where python >nul 2>nul
-if %errorlevel% equ 0 (
-    python -c "import sys; sys.path.insert(0, r'%~dp0\..\AI ZALO\hermes-agent'); from second_brain_service import reindex_second_brain; reindex_second_brain(verbose=True)" 2>nul
+set "PY_EXEC="
+py -3 -c "import sys" >nul 2>nul
+if not errorlevel 1 (
+    set "PY_EXEC=py -3"
+) else (
+    python -c "import sys" >nul 2>nul
+    if not errorlevel 1 set "PY_EXEC=python"
+)
+
+if defined PY_EXEC (
+    !PY_EXEC! -c "import sys; sys.path.insert(0, r'%~dp0\..\AI ZALO\hermes-agent'); from second_brain_service import reindex_second_brain; reindex_second_brain(verbose=True)" 2>nul
 )
 
 echo.
